@@ -16,12 +16,15 @@ app.use(express.json())
 
 const corsOption = {
     origin: "*",
-    credentials: true,
+    // origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
     credentials: true,
     optionSuccessStatus:200,
 }
 
+
 app.use(cors(corsOption))
+
 
 db.authenticate().then((res)=> console.log('Connection has been established successfully.')
 ).catch((err) => console.error('Unable to connect to the database:', err));
@@ -33,12 +36,12 @@ app.use('/api/user', authRoute)
 // test cookie
 // app.get('/cook',  (req, res) => {
 //     // Cookies that have not been signed
-//     // console.log('Cookies: ', req.cookies)
+//     console.log(' --------------------------------------------------')
+//     console.log('Cookies: ', req.cookies)
   
 //     // Cookies that have been signed
-//     // console.log('Signed Cookies: ', req.signedCookies)
-//     res.clearCookie("grantToken")
-//     console.log('Cookies: ', req.cookies)
+//     res.clearCookie('user')
+//     res.end();
 
 //   })
   

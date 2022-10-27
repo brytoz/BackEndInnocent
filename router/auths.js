@@ -181,33 +181,40 @@ router.post('/login', async (req, res) => {
 
         const giveToken = jwt.sign({
             id: emailCheck.id,
-            fullname: emailCheck.fullname,
-            email: emailCheck.email,
-            phone: emailCheck.phone,
-            password: emailCheck.password,
-            tokeen: emailCheck.tooken
-        }, process.env.SECRET, {expiresIn: "1h"});
+        }, process.env.SECRET, {expiresIn: 3000});
 
-        const newCookie = res.cookie("grantToken", giveToken , {
+        const newCookie = res.cookie("user", giveToken , {
             // httpOnly: true,
         //     // secure:true,
             maxAge: 3600000,
+            path: '/'
         //     // signed: true
         }
         )
 
+        
         if(newCookie) {
-            res.send("new Cookie")
+            return res.status(200).json({auth: true,loggedIn: true, cookie:req.cookies})
+            // res.end();
 
         } else {
-            res.send("no cookie")
-
+            res.clearCookie('user')
+            res.status(202).json({auth: false,loggedIn: false,  cookie:'No cookies'})
         }
     })
  
  
 });
 
+router.get('/login', async (req, res) => {
+    if(req.cookies.user) {
+        console.log(req.cookies.user)
+        res.status(200).json({auth: true,loggedIn: true,cookie:req.cookies.user})
+     } else {
+        res.clearCookie('user')
+        res.status(202).json({auth: false,loggedIn: false, cookie:'No cookies'})
+     }
+})
 
 
 
