@@ -5,7 +5,7 @@ dotenv.config()
 
 const validateToken = (req,res,next) => {
 
-    const grantedToken = req.cookies.grantToken;
+    const grantedToken = req.cookies.user;
 
     console.log(grantedToken)
 
@@ -15,10 +15,10 @@ const validateToken = (req,res,next) => {
         const validToken = verify(grantedToken, process.env.SECRET)
 
         if(validToken) {
-            return next();
+             next();
         }
     }catch(err){
-        res.clearCookie("grantToken")
+        res.clearCookie("user")
         return res.send("Erro validating")
     }
 }

@@ -44,7 +44,7 @@ router.post('/tokens',  async (req, res) => {
 
 })
 
-router.get("/getTokens", (req, res) => 
+router.get("/getTokens", validateToken, (req, res) => 
  
     Tokeen.findAll().then((data) => res.send(data)).catch((err) => console.log(err))
 
@@ -146,7 +146,7 @@ router.post('/register',  async (req, res) => {
 
 })
  
-router.get("/getAllUsers", (req, res) => 
+router.get("/getAllUsers",(req, res) => 
  
     User.findAll().then((data) => res.send(data)).catch((err) => console.log(err))
 
