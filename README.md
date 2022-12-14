@@ -1,3 +1,3 @@
 #  FrontEnd
 
-Check master branch documentation
+Check/Use master branch documentation
